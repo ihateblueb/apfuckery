@@ -7,6 +7,7 @@ public class WellKnownLink {
     public String rel;
     public String href;
     public String type;
+    public String template;
 
     public WellKnownLink(
             @NotNull String rel,
@@ -16,5 +17,13 @@ public class WellKnownLink {
         this.rel = rel;
         this.href = href;
         this.type = type;
+    }
+
+    public WellKnownLink(
+            @NotNull String rel,
+            @NotNull String template
+    ) {
+        this.rel = rel;
+        this.template = template;
     }
 }

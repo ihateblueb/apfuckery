@@ -40,6 +40,8 @@ public class FederationEssentials {
     ) {
         WellKnown wellKnown = new WellKnown();
 
+        System.out.println(resource);
+
         String res = resource
                 .replace("acct:@", "")
                 .replace("acct:", "")
@@ -53,7 +55,7 @@ public class FederationEssentials {
 
         String apId = baseUrl + "actor/" + INSTANCE_ACTOR_ID;
 
-        wellKnown.subject = resource;
+        wellKnown.subject = "acct:" + instanceactorUsername + "@" + URI.create(baseUrl).getHost();
 
         wellKnown.aliases = new ArrayList<>();
         wellKnown.aliases.add(apId);
@@ -61,8 +63,13 @@ public class FederationEssentials {
         wellKnown.links = new ArrayList<>();
         wellKnown.links.add(new WellKnownLink(
                 "self",
-                "application/activity+json",
-                apId
+                apId,
+                "application/activity+json"
+        ));
+        wellKnown.links.add(new WellKnownLink(
+                "self",
+                apId,
+                "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\""
         ));
 
         HttpHeaders headers = new HttpHeaders();

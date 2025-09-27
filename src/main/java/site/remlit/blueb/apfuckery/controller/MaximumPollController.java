@@ -1,7 +1,5 @@
 package site.remlit.blueb.apfuckery.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,12 +9,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import site.remlit.blueb.apfuckery.model.*;
-import site.remlit.blueb.apfuckery.service.StringStore;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import static java.lang.Thread.sleep;
 
 @RestController
 public class MaximumPollController {
