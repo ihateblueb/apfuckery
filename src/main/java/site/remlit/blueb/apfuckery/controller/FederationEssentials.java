@@ -25,17 +25,11 @@ public class FederationEssentials {
     @Value("${apfuckery.url}")
     private String baseUrl;
 
-    private final ArrayList<String> usernames = new ArrayList<>();
-
     @Value("${instanceactor.username}")
     private String instanceactorUsername;
 
-    {
-        usernames.add(instanceactorUsername);
-    }
-
     @GetMapping("/.well-known/webfinger")
-    public ResponseEntity<WellKnown> getWellKnownLinks(
+    public ResponseEntity<WellKnown> getWellKnownWebfinger(
             @RequestParam("resource") String resource
     ) {
         WellKnown wellKnown = new WellKnown();
@@ -49,7 +43,9 @@ public class FederationEssentials {
                 .replace("@", "")
                 .replace(baseUrl + "actor/", "");
 
-        if (!usernames.contains(res) && !res.equals(INSTANCE_ACTOR_ID)) {
+        System.out.println("resfiltered "+ res);
+
+        if (!res.equals(instanceactorUsername) && !res.equals(INSTANCE_ACTOR_ID)) {
             throw new RuntimeException("User not found");
         }
 
@@ -73,7 +69,26 @@ public class FederationEssentials {
         ));
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/activity+json");
+        headers.set("Content-Type", "application/jrd+json");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(wellKnown);
+    }
+
+    @GetMapping("/.well-known/host-meta")
+    public ResponseEntity<WellKnown> getWellKnownHostMeta() {
+        WellKnown wellKnown = new WellKnown();
+
+        wellKnown.links = new ArrayList<>();
+        wellKnown.links.add(new WellKnownLink(
+                "lrdd",
+                baseUrl + ".well-known/webfinger?resource={uri}",
+                "application/jrd+json"
+        ));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/jrd+json");
 
         return ResponseEntity.ok()
                 .headers(headers)

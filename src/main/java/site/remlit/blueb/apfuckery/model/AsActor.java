@@ -11,7 +11,7 @@ public class AsActor extends AsContextedObject implements AsObject {
     public String name;
     public String preferredUsername;
 
-    public String content;
+    public String summary;
 
     public boolean discoverable = true;
     public boolean manuallyApprovesFollowers = false;
@@ -29,6 +29,6 @@ public class AsActor extends AsContextedObject implements AsObject {
 
     public ArrayList<AsTag> tag = new ArrayList<>();
 
-    public String publicKey;
+    public AsPublicKey publicKey;
 
 }

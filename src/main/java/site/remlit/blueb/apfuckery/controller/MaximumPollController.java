@@ -43,11 +43,13 @@ public class MaximumPollController {
 
         question.oneOf = new ArrayList<>();
 
-        for (int i  = 0; i < (1024 * 10); i++) {
+        for (int i  = 0; i < (1024 * 5); i++) {
             question.oneOf.add(new AsPollOption(
                     String.valueOf(i)
             ));
         }
+
+        question.to.add("https://www.w3.org/ns/activitystreams#Public");
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/activity+json");

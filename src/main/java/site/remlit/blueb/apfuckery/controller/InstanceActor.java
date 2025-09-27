@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import site.remlit.blueb.apfuckery.model.AsActor;
 import site.remlit.blueb.apfuckery.model.AsObject;
+import site.remlit.blueb.apfuckery.model.AsPublicKey;
 import site.remlit.blueb.apfuckery.service.StringStore;
 
 import java.security.KeyPair;
@@ -103,7 +104,7 @@ public class InstanceActor {
         actor.name = displayName;
         actor.preferredUsername = username;
 
-        actor.content = bio;
+        actor.summary = bio;
 
         actor.isCat = isCat;
         actor.speakAsCat = speakAsCat;
@@ -116,7 +117,10 @@ public class InstanceActor {
 
         actor.published = LocalDateTime.of(2025, 9, 27, 2, 4).toString();
 
-        actor.publicKey = publicKey;
+        actor.publicKey = new AsPublicKey(
+                actor.id,
+                publicKey
+        );
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/activity+json");
